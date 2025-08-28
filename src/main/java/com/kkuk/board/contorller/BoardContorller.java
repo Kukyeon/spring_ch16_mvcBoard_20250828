@@ -1,5 +1,7 @@
 package com.kkuk.board.contorller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -7,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kkuk.board.dao.BoardDao;
+import com.kkuk.board.dto.BoardDto;
 
 @Controller
 public class BoardContorller {
@@ -25,6 +28,28 @@ public class BoardContorller {
 		boardDao.write(request.getParameter("bname"), request.getParameter("btitle"), request.getParameter("bcontent"));
 		
 		
-		return "direct:boardlist";
+		return "redirect:boardlist";
+	}
+	
+	@RequestMapping(value = "/boardlist") // 글 목록보기 요청처리
+	public String boardlist(HttpServletRequest request, Model model) { 
+		
+		BoardDao boardDao = new BoardDao();
+		List<BoardDto> bDtos = boardDao.boardlist();
+		model.addAttribute("bDtos", bDtos);
+		
+		return "boardlist";
+	}
+	
+	@RequestMapping(value = "/content_view") // 게시판 글 목록에서 보고싶은 글 클릭시 요청처리
+	public String content_view(HttpServletRequest request, Model model) {
+		
+		String bnum = request.getParameter("bnum"); // 유저가 클릭한 글의 번호
+		BoardDao boardDao = new BoardDao();
+		BoardDto bDto = boardDao.contentview(bnum);
+		
+		model.addAttribute("bDto", bDto);
+		
+		return "contentview";
 	}
 }
