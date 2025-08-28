@@ -19,13 +19,15 @@
 			<th>등록일</th>
 		</tr>
 		
-		<c:forEach items="${bDtos}" var="bDto">
+		<c:forEach items="${bDtos }" var="bDto">
 		<tr>
-			<td>${bDto.bnum}</td>
-			<td><a href="content_view?bnum=${bDto.bnum}">${bDto.title}</a></td>
-			<td>${bDto.bname}</td>
-			<td>${bDto.bhit}</td>
-			<td>${bDto.bdate}</td>
+			<td>${bDto.bnum }</td>
+			<td>			
+			<a href="content_view?bnum=${bDto.bnum }">${bDto.btitle }</a>
+			</td>
+			<td>${bDto.bname }</td>
+			<td>${bDto.bhit }</td>
+			<td>${bDto.bdate }</td>
 		</tr>
 		</c:forEach>
 		
